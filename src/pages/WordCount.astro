@@ -5,9 +5,6 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="wordcount" >
 	<main>
 	  <div id='d'>
-        <div id='maxL'> Limit
-            <input type="number" id="l" min="100" max="500" value="100">
-        </div>
         <div id='inner'>
         <textarea name="textA" id="ta" maxlength='100' placeholder="Message Here..."></textarea>
         <p><span id='numbers'></span></p></div>
@@ -18,44 +15,16 @@ import Layout from "../layouts/Layout.astro";
 <script>
     const ta = document.getElementById('ta') as HTMLInputElement;
     const num = document.getElementById('numbers') as HTMLInputElement;
-    const limit = document.getElementById('l') as HTMLInputElement;
 
-    function setLimit(val:number) {
-        num.innerText = ta.value.length + ` / ${val}`;
-    }
-    setLimit(ta.maxLength);
-
-    if(limit){
-    limit.addEventListener('input', () => {
-        if(ta.value.length<parseInt(limit.value)){
-        ta.maxLength = parseInt(limit.value);
-        setLimit(ta.maxLength);
-        }else{
-            alert('my guy, u got too many characters');
-        }
-
-    });
+      
+        
     ta.addEventListener('input', () => {
-
-        setLimit(ta.maxLength);
-    });}
+        const list = ta.value.trim().split(" ")
+        num.innerText = `Words: ${list.length} Letters: ${ta.value. replace(/ /g,"").length}` ;
+    });
 </script>
 <style>
     
-        #maxL {
-            padding-right: 2em;
-            padding-top: .6em;
-
-        }
-
-        #l {
-            text-align: center;
-            padding: 0;
-            width: 50%;
-            height: 2em;
-            font-size: 1.5em;
-        }
-        
         p {
             padding-right: 1em;
             margin: 0;
@@ -65,8 +34,9 @@ import Layout from "../layouts/Layout.astro";
             font-weight:bold;
             font-size: 1.2em;
             opacity: .78;
-        }  #d {
-            height: 6em;
+        }
+          #d {
+            height: 400px;
             display: flex;
             justify-content: center;
         }
@@ -78,7 +48,6 @@ import Layout from "../layouts/Layout.astro";
             width: 100%;
             font-size: 1.4em;
             height: 100%;
-            resize:none;
             padding: 1em;
             box-sizing: border-box;
         }

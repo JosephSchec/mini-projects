@@ -3,4 +3,5 @@
  - [x] word-counter
  - [ ] synonym finder using [api](https://dictionaryapi.dev/)
  - [ ] learn more about astro
- 
+
+Favicon from https://iconoir.com/

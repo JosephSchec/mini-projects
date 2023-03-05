@@ -6,7 +6,21 @@ import Layout from "../layouts/Layout.astro";
 	<main>
 		<form action="" id="form">
         	<textarea name="text" id="ta" cols="30" rows="10"></textarea>
-        	<button id="read">Read</button>
+			<div id="sliders">
+				<label for="pitch">
+					Pitch : <span id="pitchVal">.3</span>
+				</label>
+				<input type="range" min="0" max="2" id="pitch" step="0.01" value=".3"/>
+					<label for="rate">
+					Rate : <span id="rateVal">3.95</span>
+				</label>
+				<input type="range" min="0" max="10" id="rate" step="0.01" value="3.95"/>
+				<label for="volume">
+					Volume : <span id="volVal">1</span>
+				</label>
+				<input type="range" min="0" max="1" id="volume" step="0.01" value="1"/>
+			</div>
+			<button id="read">Read</button>
    		</form>
 		<article>
     		<p id="current"></p>
@@ -18,15 +32,33 @@ import Layout from "../layouts/Layout.astro";
 	const button = document.getElementById('read');
     const textarea = document.getElementById('ta')  as HTMLInputElement;
     const current = document.getElementById('current');
-    var msg = new SpeechSynthesisUtterance();
-    var synth = window.speechSynthesis; 
+	const pitch = document.getElementById('pitch') as HTMLInputElement;
+	const rate = document.getElementById('rate') as HTMLInputElement;
+	const volume = document.getElementById('volume') as HTMLInputElement; ;
+	pitch.addEventListener("input",()=>{
+		const p=document.getElementById("pitchVal")as HTMLInputElement
+		p.innerText=pitch.value
+	})
+	
+	rate.addEventListener("input",()=>{
+		const r=document.getElementById("rateVal")as HTMLInputElement
+		r.innerText=rate.value
+	})
+	
+	volume.addEventListener("input",()=>{
+		const v=document.getElementById("volVal")as HTMLInputElement
+		v.innerText=volume.value
+	})
+	
+    const msg = new SpeechSynthesisUtterance();
+    const synth = window.speechSynthesis; 
 
 	if(button && textarea && current){ 
     	button.addEventListener('click', (e) => {
-        	e.preventDefault();
-        	msg.pitch = .3;
-        	msg.rate =3.95;
-        	msg.volume = 3.5;
+        	e.preventDefault(); 
+        	msg.pitch =  parseFloat(pitch.value);
+        	msg.rate =	 parseFloat(rate.value);
+        	msg.volume = parseFloat(volume.value);
         	if (textarea?.value.trim() !== '') {
             	msg.text = textarea.value;
             	current.style.display = 'block'
@@ -65,3 +97,28 @@ import Layout from "../layouts/Layout.astro";
    		});
 }
 </script>
+<style>
+	#sliders{
+		display: flex;
+		flex-direction: column;
+		height:100%, 
+	}
+	#pitch,
+	#rate,
+	#volume{
+		width: 300px;
+	}
+	form{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#read{
+		background-color: #084b83 ;
+		color: #bbe6e4;
+		height: 1px;
+		display: flex;
+		border-radius: 15px;
+		align-items: center;
+	}
+</style>
