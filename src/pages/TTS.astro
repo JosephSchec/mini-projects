@@ -1,120 +1,118 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="TTS" >
+<Layout title="TTS">
 	<main>
 		<form action="" id="form">
-        	<textarea name="text" id="ta" cols="30" rows="10"></textarea>
+			<textarea name="text" id="ta" cols="30" rows="10"></textarea>
 			<div id="sliders">
 				<label for="pitch">
 					Pitch : <span id="pitchVal">.3</span>
 				</label>
-				<input type="range" min="0" max="2" id="pitch" step="0.01" value=".3"/>
-					<label for="rate">
+				<input type="range" min="0" max="2" id="pitch" step="0.01" value=".3" />
+				<label for="rate">
 					Rate : <span id="rateVal">3.95</span>
 				</label>
-				<input type="range" min="0" max="10" id="rate" step="0.01" value="3.95"/>
+				<input type="range" min="0" max="10" id="rate" step="0.01" value="3.95" />
 				<label for="volume">
 					Volume : <span id="volVal">1</span>
 				</label>
-				<input type="range" min="0" max="1" id="volume" step="0.01" value="1"/>
+				<input type="range" min="0" max="1" id="volume" step="0.01" value="1" />
 			</div>
 			<button id="read">Read</button>
-   		</form>
+		</form>
 		<article>
-    		<p id="current"></p>
+			<p id="current"></p>
 		</article>
 	</main>
 </Layout>
 
 <script>
 	const button = document.getElementById('read');
-    const textarea = document.getElementById('ta')  as HTMLInputElement;
-    const current = document.getElementById('current');
+	const textarea = document.getElementById('ta') as HTMLInputElement;
+	const current = document.getElementById('current');
 	const pitch = document.getElementById('pitch') as HTMLInputElement;
 	const rate = document.getElementById('rate') as HTMLInputElement;
-	const volume = document.getElementById('volume') as HTMLInputElement; ;
-	pitch.addEventListener("input",()=>{
-		const p=document.getElementById("pitchVal")as HTMLInputElement
-		p.innerText=pitch.value
-	})
-	
-	rate.addEventListener("input",()=>{
-		const r=document.getElementById("rateVal")as HTMLInputElement
-		r.innerText=rate.value
-	})
-	
-	volume.addEventListener("input",()=>{
-		const v=document.getElementById("volVal")as HTMLInputElement
-		v.innerText=volume.value
-	})
-	
-    const msg = new SpeechSynthesisUtterance();
-    const synth = window.speechSynthesis; 
+	const volume = document.getElementById('volume') as HTMLInputElement;
+	pitch.addEventListener('input', () => {
+		const p = document.getElementById('pitchVal') as HTMLInputElement;
+		p.innerText = pitch.value;
+	});
 
-	if(button && textarea && current){ 
-    	button.addEventListener('click', (e) => {
-        	e.preventDefault(); 
-        	msg.pitch =  parseFloat(pitch.value);
-        	msg.rate =	 parseFloat(rate.value);
-        	msg.volume = parseFloat(volume.value);
-        	if (textarea?.value.trim() !== '') {
-            	msg.text = textarea.value;
-            	current.style.display = 'block'
-        	} else {
-            	current.style.display = 'none'
-        	}
+	rate.addEventListener('input', () => {
+		const r = document.getElementById('rateVal') as HTMLInputElement;
+		r.innerText = rate.value;
+	});
 
-       		 window.speechSynthesis.cancel();
+	volume.addEventListener('input', () => {
+		const v = document.getElementById('volVal') as HTMLInputElement;
+		v.innerText = volume.value;
+	});
 
-        	if (synth.getVoices()[1]) {
-            	msg.voice = synth.getVoices()[1]??null;
-            	synth.speak(msg);
-        	}
-        	else {
-            	window.speechSynthesis.speak(msg);
+	const msg = new SpeechSynthesisUtterance();
+	const synth = window.speechSynthesis;
 
-        	}
-       	 	current.innerText = textarea.value;
-        	msg.text = ''
-        	textarea.value = '' 
-    	})
+	if (button && textarea && current) {
+		button.addEventListener('click', (e) => {
+			e.preventDefault();
+			msg.pitch = parseFloat(pitch.value);
+			msg.rate = parseFloat(rate.value);
+			msg.volume = parseFloat(volume.value);
+			if (textarea?.value.trim() !== '') {
+				msg.text = textarea.value;
+				current.style.display = 'block';
+			} else {
+				current.style.display = 'none';
+			}
 
-    	let countEnters = 0;
+			window.speechSynthesis.cancel();
 
-		textarea.addEventListener("keyup", (e) => {
-        	e.preventDefault();
-        	if (e.key === 'Enter') {
-            	countEnters++;
-            	if (countEnters > 3) {
-                	button.click()
-                	countEnters = 0;
-            	}
-        	} else {
-            	countEnters = 0
-        	}
-   		});
-}
+			if (synth.getVoices()[1]) {
+				msg.voice = synth.getVoices()[1] ?? null;
+				synth.speak(msg);
+			} else {
+				window.speechSynthesis.speak(msg);
+			}
+			current.innerText = textarea.value;
+			msg.text = '';
+			textarea.value = '';
+		});
+
+		let countEnters = 0;
+
+		textarea.addEventListener('keyup', (e) => {
+			e.preventDefault();
+			if (e.key === 'Enter') {
+				countEnters++;
+				if (countEnters > 3) {
+					button.click();
+					countEnters = 0;
+				}
+			} else {
+				countEnters = 0;
+			}
+		});
+	}
 </script>
 <style>
-	#sliders{
+	#sliders {
 		display: flex;
 		flex-direction: column;
-		height:100%, 
+		height: 100%;
 	}
 	#pitch,
 	#rate,
-	#volume{
+	#volume {
 		width: 300px;
 	}
-	form{
+	form {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
-	#read{
-		background-color: #084b83 ;
+	#read {
+		background-color: #084b83;
 		color: #bbe6e4;
 		height: 1px;
 		display: flex;

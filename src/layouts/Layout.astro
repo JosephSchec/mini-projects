@@ -1,7 +1,7 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
 export interface Props {
-	title: string; 
+	title: string;
 }
 
 const { title } = Astro.props;
@@ -18,14 +18,20 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<h1>My {title}</h1>
-		{title!=="homepage"&&<a href="/">	<span>&larr;</span>Back</a>}
+		{
+			title !== 'homepage' && (
+				<a href="/">
+					{' '}
+					<span>&larr;</span>Back
+				</a>
+			)
+		}
 		<slot />
 	</body>
-
 </html>
- 
+
 <style>
-	h1{
+	h1 {
 		text-transform: capitalize;
 	}
 </style>

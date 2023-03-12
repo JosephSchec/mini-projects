@@ -1,54 +1,53 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="wordcount" >
+<Layout title="wordcount">
 	<main>
-	  <div id='d'>
-        <div id='inner'>
-        <textarea name="textA" id="ta" maxlength='100' placeholder="Message Here..."></textarea>
-        <p><span id='numbers'></span></p></div>
-    </div>
+		<div id="d">
+			<div id="inner">
+				<textarea name="textA" id="ta" maxlength="100" placeholder="Message Here..."></textarea>
+				<p><span id="numbers"></span></p>
+			</div>
+		</div>
 	</main>
 </Layout>
 
 <script>
-    const ta = document.getElementById('ta') as HTMLInputElement;
-    const num = document.getElementById('numbers') as HTMLInputElement;
+	const ta = document.getElementById('ta') as HTMLInputElement;
+	const num = document.getElementById('numbers') as HTMLInputElement;
 
-      
-        
-    ta.addEventListener('input', () => {
-        const list = ta.value.trim().split(" ")
-        num.innerText = `Words: ${list.length} Letters: ${ta.value. replace(/ /g,"").length}` ;
-    });
+	ta.addEventListener('input', () => {
+		const list = ta.value.trim().split(' ');
+		num.innerText = `Words: ${list.length} Letters: ${ta.value.replace(/ /g, '').length}`;
+	});
 </script>
 <style>
-    
-        p {
-            padding-right: 1em;
-            margin: 0;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            font-weight:bold;
-            font-size: 1.2em;
-            opacity: .78;
-        }
-          #d {
-            height: 400px;
-            display: flex;
-            justify-content: center;
-        }
-        #inner{
-            width: 50%;
-            position: relative;
-        } 
-         #ta {
-            width: 100%;
-            font-size: 1.4em;
-            height: 100%;
-            padding: 1em;
-            box-sizing: border-box;
-        }
+	p {
+		padding-right: 1em;
+		margin: 0;
+
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		font-weight: bold;
+		font-size: 1.2em;
+		opacity: 0.78;
+	}
+	#d {
+		height: 400px;
+		display: flex;
+		justify-content: center;
+	}
+	#inner {
+		width: 50%;
+		position: relative;
+	}
+	#ta {
+		width: 100%;
+		font-size: 1.4em;
+		height: 100%;
+		padding: 1em;
+		box-sizing: border-box;
+	}
 </style>
