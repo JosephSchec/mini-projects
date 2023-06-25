@@ -4,10 +4,17 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="wordcount">
 	<main>
-		<div id="d">
-			<div id="inner">
-				<textarea name="textA" id="ta" maxlength="100" placeholder="Message Here..."></textarea>
-				<p><span id="numbers"></span></p>
+		<div class="h-[400px] flex justify-center rounded">
+			<div class="w-2/3 relative">
+				<textarea
+					name="textA"
+					id="ta"
+					maxlength="100"
+					placeholder="Message Here..."
+					class="rounded w-full text-xl h-full p-4 box-border"></textarea>
+				<p class="pr-3 text-md m-0 absolute right-0 bottom-0 opacity-75 font-bold">
+					<span id="numbers"></span>
+				</p>
 			</div>
 		</div>
 	</main>
@@ -19,35 +26,9 @@ import Layout from '../layouts/Layout.astro';
 
 	ta.addEventListener('input', () => {
 		const list = ta.value.trim().split(' ');
-		num.innerText = `Words: ${list.length} Letters: ${ta.value.replace(/ /g, '').length}`;
+		num.innerText = `Words: ${ta.value.trim() === '' ? 0 : list.length} Letters: ${
+			ta.value.replace(/ /g, '').length
+		}`;
 	});
 </script>
-<style>
-	p {
-		padding-right: 1em;
-		margin: 0;
 
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		font-weight: bold;
-		font-size: 1.2em;
-		opacity: 0.78;
-	}
-	#d {
-		height: 400px;
-		display: flex;
-		justify-content: center;
-	}
-	#inner {
-		width: 50%;
-		position: relative;
-	}
-	#ta {
-		width: 100%;
-		font-size: 1.4em;
-		height: 100%;
-		padding: 1em;
-		box-sizing: border-box;
-	}
-</style>

@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="TTS">
-	<main>
-		<form action="" id="form">
-			<textarea name="text" id="ta" cols="30" rows="10"></textarea>
-			<div id="sliders">
+	<main class="flex flex-col justify-center items-center">
+		<form action="" id="form" class="flex justify-center flex-col w-1/3 align-middle">
+			<textarea name="text" id="ta" cols="30" rows="10" class="rounded"></textarea>
+			<div id="sliders" class="flex flex-col my-4">
 				<label for="pitch">
 					Pitch : <span id="pitchVal">.3</span>
 				</label>
@@ -20,7 +20,9 @@ import Layout from '../layouts/Layout.astro';
 				</label>
 				<input type="range" min="0" max="1" id="volume" step="0.01" value="1" />
 			</div>
-			<button id="read">Read</button>
+			<button id="read" class="w-full text-xl rounded-md font-bold bg-emerald-200 p-3 mt-3"
+				>Read</button
+			>
 		</form>
 		<article>
 			<p id="current"></p>
@@ -95,28 +97,3 @@ import Layout from '../layouts/Layout.astro';
 		});
 	}
 </script>
-<style>
-	#sliders {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-	#pitch,
-	#rate,
-	#volume {
-		width: 300px;
-	}
-	form {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	#read {
-		background-color: #084b83;
-		color: #bbe6e4;
-		height: 1px;
-		display: flex;
-		border-radius: 15px;
-		align-items: center;
-	}
-</style>

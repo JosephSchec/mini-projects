@@ -1,0 +1,31 @@
+---
+import Card from '../../components/Card.astro';
+import Layout from '../../layouts/Layout.astro';
+
+interface Frontmatter {
+	title: string;
+	description?: string;
+}
+const allPosts = await Astro.glob<Frontmatter>('./*.md');
+console.log(allPosts.map((a) => a.frontmatter.description));
+---
+
+<Layout title="Blogs">
+	<main class="flex justify-center">
+		<div class=" w-3/5">
+			{
+				allPosts.map((ap) => {
+					return (
+						<div class=" w-full">
+							<Card
+								href={ap.url ?? '/'}
+								title={ap.frontmatter.title ?? 'nothing here'}
+								body={ap.frontmatter.description ?? 'No description'}
+							/>
+						</div>
+					);
+				})
+			}
+		</div>
+	</main>
+</Layout>

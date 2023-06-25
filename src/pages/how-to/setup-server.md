@@ -1,6 +1,7 @@
 ---
 layout: '../../layouts/BlogLayout.astro'
 title: Setup server
+description: Oracle server setup
 ---
 
 # Basic server signin with putty
