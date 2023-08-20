@@ -7,7 +7,6 @@ interface Frontmatter {
 	description?: string;
 }
 const allPosts = await Astro.glob<Frontmatter>('./*.md');
-console.log(allPosts.map((a) => a.frontmatter.description));
 ---
 
 <Layout title="Blogs">
